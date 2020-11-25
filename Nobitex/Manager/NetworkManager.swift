@@ -39,4 +39,28 @@ class NetworkManager {
             }
         }.resume()
     }
+    
+    func getMarketInfo(symbol: String) {
+        let url = String(format: baseURL + "/v2/orderbook")
+        guard let serviceUrl = URL(string: url) else { return }
+        let parameterDictionary = ["symbol" : symbol]
+        var request = URLRequest(url: serviceUrl)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameterDictionary, options: []) else { return }
+        request.httpBody = httpBody
+        
+        let session = URLSession.shared
+        
+        session.dataTask(with: request) { (data, response, error) in
+            if let data = data {
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    print(json)
+                } catch {
+                    print(error)
+                }
+            }
+        }.resume()
+    }
 }

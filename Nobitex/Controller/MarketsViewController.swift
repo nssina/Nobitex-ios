@@ -12,5 +12,6 @@ class MarketsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NetworkManager.shared.getMarketInfo(symbol: "USDTIRT")
     }
 }
