@@ -11,7 +11,7 @@ class NetworkManager {
     
     static let shared = NetworkManager()
     
-    private let apiToken: String = "" // for test
+    private let apiToken: String = ""
     private let baseURL: String = "https://api.nobitex.ir"
     
     func getAuthToken(username: String, password: String, remember: String, otp: String) {
@@ -39,7 +39,4 @@ class NetworkManager {
             }
         }.resume()
     }
-    
-    
-    
 }
