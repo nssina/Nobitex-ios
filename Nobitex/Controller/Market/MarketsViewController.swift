@@ -18,6 +18,7 @@ class MarketsViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
+        tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         tableView.register(MarketsCell.self, forCellReuseIdentifier: "marketsCell")
@@ -61,7 +62,6 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
 //        } else {
 //            cell._label.text = "Loading..."
 //        }
-        cell.symbol.textColor = .yellow
         
         return cell
     }

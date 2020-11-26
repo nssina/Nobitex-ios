@@ -25,6 +25,21 @@ class MarketsCell: UITableViewCell {
         
     }()
     
+    lazy var dayChangeView: UIView = {
+       var view = UIView()
+        
+        view.layer.cornerRadius = 5
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
+    lazy var dayChangePercent: UILabel = {
+        var label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -38,7 +53,9 @@ class MarketsCell: UITableViewCell {
     
     func addSubview() {
         contentView.addSubview(symbol)
+        contentView.addSubview(dayChangeView)
         contentView.addSubview(latestPriceLabel)
+        dayChangeView.addSubview(dayChangePercent)
     }
     
     func constraintView() {
@@ -46,7 +63,13 @@ class MarketsCell: UITableViewCell {
             symbol.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             symbol.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             latestPriceLabel.centerYAnchor.constraint(equalTo: symbol.centerYAnchor),
-            latestPriceLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
+            latestPriceLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            dayChangeView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            dayChangeView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            dayChangeView.widthAnchor.constraint(equalToConstant: 90),
+            dayChangeView.heightAnchor.constraint(equalToConstant: 30),
+            dayChangePercent.centerXAnchor.constraint(equalTo: dayChangeView.centerXAnchor),
+            dayChangePercent.centerYAnchor.constraint(equalTo: dayChangeView.centerYAnchor)
         ])
     }
 }
