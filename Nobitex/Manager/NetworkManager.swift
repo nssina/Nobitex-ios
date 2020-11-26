@@ -64,7 +64,7 @@ class NetworkManager {
         }.resume()
     }
     
-    func getMarketStats(srcCurrency: String, dstCurrency: String) {
+    func getMarketStats(srcCurrency: String, dstCurrency: String, completion: @escaping (Bool, MarketStateModel) -> ()) {
         let url = String(format: baseURL + "/market/stats")
         guard let serviceUrl = URL(string: url) else { return }
         let parameters = ["srcCurrency" : srcCurrency, "dstCurrency" : dstCurrency]
@@ -79,8 +79,9 @@ class NetworkManager {
         session.dataTask(with: request) { (data, response, error) in
             if let data = data {
                 do {
-                    let json = try JSONSerialization.jsonObject(with: data, options: [])
-                    print(json)
+                    var marketModel: MarketStateModel!
+                    marketModel = try JSONDecoder().decode(MarketStateModel.self, from: data)
+                    completion(true, marketModel)
                 } catch {
                     print(error)
                 }
