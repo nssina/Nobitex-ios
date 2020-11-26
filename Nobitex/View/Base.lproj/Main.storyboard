@@ -19,7 +19,7 @@
                         <color key="selectedImageTintColor" systemColor="systemGreenColor"/>
                     </tabBar>
                     <connections>
-                        <segue destination="bjb-JJ-4sv" kind="relationship" relationship="viewControllers" id="JiX-E4-lS6"/>
+                        <segue destination="ZR9-ia-Vd4" kind="relationship" relationship="viewControllers" id="JiX-E4-lS6"/>
                         <segue destination="Q8K-CL-DLR" kind="relationship" relationship="viewControllers" id="Yxs-y0-wOi"/>
                         <segue destination="M1K-6X-7kA" kind="relationship" relationship="viewControllers" id="2IW-sY-2FI"/>
                     </connections>
@@ -70,11 +70,30 @@
                         <viewLayoutGuide key="safeArea" id="rZd-fT-hoa"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Markets" image="chart.bar.xaxis" catalog="system" id="dTz-M3-25S"/>
+                    <navigationItem key="navigationItem" title="Markets" largeTitleDisplayMode="always" id="uUF-pM-txF"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qJc-rN-kIB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2327" y="-1026"/>
+            <point key="canvasLocation" x="-1539" y="-1027"/>
+        </scene>
+        <!--Markets-->
+        <scene sceneID="idH-5p-eNy">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZR9-ia-Vd4" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Markets" image="chart.bar.xaxis" catalog="system" id="dTz-M3-25S"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="7f7-cY-e9N">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="91"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="bjb-JJ-4sv" kind="relationship" relationship="rootViewController" id="adg-0A-Uca"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hp2-0H-2NO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2328.75" y="-1026.7605633802816"/>
         </scene>
     </scenes>
     <resources>

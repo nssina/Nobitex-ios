@@ -30,16 +30,18 @@ class MarketsViewController: UIViewController {
         
         view.addSubview(marketsTableView)
         
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
         setMarketsTableViewConstraints()
         
-        network.getMarketStats(srcCurrency: "btc", dstCurrency: "usdt") { (success, json) in
-            if success {
-                DispatchQueue.main.async {
-                    self.marketData = json
-                    self.marketsTableView.reloadData()
-                }
-            }
-        }
+//        network.getMarketStats(srcCurrency: "btc", dstCurrency: "usdt") { (success, json) in
+//            if success {
+//                DispatchQueue.main.async {
+//                    self.marketData = json
+//                    self.marketsTableView.reloadData()
+//                }
+//            }
+//        }
     }
 }
 
@@ -51,18 +53,21 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "marketsCell", for: indexPath) as! MarketsCell
         
-        if marketData != nil {
-            cell._label.text = marketData.stats.btcRls.latest
-        } else {
-            cell._label.text = "Loading..."
-        }
-        cell._label.textColor = .yellow
+        cell.symbol.text = "BTC/USDT\n1,565,731.17"
+        cell.latestPriceLabel.text = "17000"
+        
+//        if marketData != nil {
+//            cell._label.text = "BTC/USDT/n17000"
+//        } else {
+//            cell._label.text = "Loading..."
+//        }
+        cell.symbol.textColor = .yellow
         
         return cell
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Latest BTC Price"
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return tableView.estimatedRowHeight
     }
 }
 

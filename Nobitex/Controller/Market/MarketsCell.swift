@@ -9,10 +9,20 @@ import UIKit
 
 class MarketsCell: UITableViewCell {
 
-    lazy var _label: UILabel = {
+    lazy var symbol: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    lazy var latestPriceLabel: UILabel = {
+        let label = UILabel()
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+        
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -27,13 +37,16 @@ class MarketsCell: UITableViewCell {
     }
     
     func addSubview() {
-        contentView.addSubview(_label)
+        contentView.addSubview(symbol)
+        contentView.addSubview(latestPriceLabel)
     }
     
     func constraintView() {
         NSLayoutConstraint.activate([
-            _label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            _label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            symbol.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            symbol.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            latestPriceLabel.centerYAnchor.constraint(equalTo: symbol.centerYAnchor),
+            latestPriceLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
         ])
     }
 }

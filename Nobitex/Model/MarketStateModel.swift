@@ -16,7 +16,7 @@ struct MarketStateModel: Codable {
 // MARK: - Stats
 struct Stats: Codable {
     let btcRls: BtcRls
-
+    
     enum CodingKeys: String, CodingKey {
         case btcRls = "btc-usdt"
     }
