@@ -35,14 +35,14 @@ class MarketsViewController: UIViewController {
         
         setMarketsTableViewConstraints()
         
-//        network.getMarketStats(srcCurrency: "btc", dstCurrency: "usdt") { (success, json) in
-//            if success {
-//                DispatchQueue.main.async {
-//                    self.marketData = json
-//                    self.marketsTableView.reloadData()
-//                }
-//            }
-//        }
+        network.getMarketStats(srcCurrency: "btc", dstCurrency: "usdt") { (success, json) in
+            if success {
+                DispatchQueue.main.async {
+                    self.marketData = json
+                    self.marketsTableView.reloadData()
+                }
+            }
+        }
     }
 }
 
@@ -54,14 +54,16 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "marketsCell", for: indexPath) as! MarketsCell
         
-        cell.symbol.text = "BTC/USDT\n1,565,731.17"
-        cell.latestPriceLabel.text = "17000"
-        
-//        if marketData != nil {
-//            cell._label.text = "BTC/USDT/n17000"
-//        } else {
-//            cell._label.text = "Loading..."
-//        }
+        if marketData != nil {
+            if marketData.stats.btcRls.dayChange.contains("-") {
+                cell.dayChangeView.backgroundColor = .systemRed
+                cell.dayChangePercent.text = marketData.stats.btcRls.dayChange
+            } else {
+                cell.backgroundColor = .systemGreen
+            }
+            cell.symbol.text = "BTC/USDT\n\(String(marketData.stats.btcRls.volumeDst.prefix(10)))"
+            cell.latestPriceLabel.text = String(marketData.stats.btcRls.latest.prefix(5))
+        }
         
         return cell
     }

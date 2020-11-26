@@ -11,6 +11,7 @@ class MarketsCell: UITableViewCell {
 
     lazy var symbol: UILabel = {
         let label = UILabel()
+        label.text = "Loading..."
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -19,6 +20,7 @@ class MarketsCell: UITableViewCell {
     lazy var latestPriceLabel: UILabel = {
         let label = UILabel()
         
+        label.text = "Loading..."
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -36,6 +38,7 @@ class MarketsCell: UITableViewCell {
     
     lazy var dayChangePercent: UILabel = {
         var label = UILabel()
+        label.text = "Loading..."
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -66,7 +69,7 @@ class MarketsCell: UITableViewCell {
             latestPriceLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             dayChangeView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             dayChangeView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            dayChangeView.widthAnchor.constraint(equalToConstant: 90),
+            dayChangeView.widthAnchor.constraint(equalToConstant: 80),
             dayChangeView.heightAnchor.constraint(equalToConstant: 30),
             dayChangePercent.centerXAnchor.constraint(equalTo: dayChangeView.centerXAnchor),
             dayChangePercent.centerYAnchor.constraint(equalTo: dayChangeView.centerYAnchor)
