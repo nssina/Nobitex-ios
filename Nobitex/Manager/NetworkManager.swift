@@ -10,8 +10,7 @@ import UIKit
 class NetworkManager {
     
     static let shared = NetworkManager()
-    
-    private let apiToken: String = ""
+    private let marketState = MarketStateModel.shared
     private let baseURL: String = "https://api.nobitex.ir"
     
     func getAuthToken(username: String, password: String, remember: String, otp: String) {
@@ -64,7 +63,7 @@ class NetworkManager {
         }.resume()
     }
     
-    func getMarketStats(srcCurrency: String, dstCurrency: String, completion: @escaping (Bool, MarketStateModel) -> ()) {
+    func getMarketStats(srcCurrency: String, dstCurrency: String, completion: @escaping (Bool) -> ()) {
         let url = String(format: baseURL + "/market/stats")
         guard let serviceUrl = URL(string: url) else { return }
         let parameters = ["srcCurrency" : srcCurrency, "dstCurrency" : dstCurrency]
@@ -79,9 +78,19 @@ class NetworkManager {
         session.dataTask(with: request) { (data, response, error) in
             if let data = data {
                 do {
-                    var marketModel: MarketStateModel!
-                    marketModel = try JSONDecoder().decode(MarketStateModel.self, from: data)
-                    completion(true, marketModel)
+                    let json = try JSONSerialization.jsonObject(with: data, options: []) as! [String:Any]
+                    
+                    let stats = json["stats"] as! [String:Any]
+                    let symbol = stats["\(srcCurrency)-\(dstCurrency)"] as! [String:Any]
+                    let latestPrice = symbol["latest"] as! String
+                    let dayChange = symbol["dayChange"] as! String
+                    
+                    self.marketState.symbol.append(String("\(srcCurrency)\(dstCurrency)").uppercased())
+                    self.marketState.latestPrice.append(String(latestPrice.prefix(5)))
+                    self.marketState.dayChange.append(dayChange)
+                    
+                    completion(true)
+                    
                 } catch {
                     print(error)
                 }

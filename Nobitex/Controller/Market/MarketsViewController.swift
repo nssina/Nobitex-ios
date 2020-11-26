@@ -10,7 +10,7 @@ import UIKit
 class MarketsViewController: UIViewController {
     
     private let network = NetworkManager.shared
-    private var marketData: MarketStateModel!
+    private let marketState = MarketStateModel.shared
     
     private lazy var marketsTableView: UITableView = {
         let tableView = UITableView()
@@ -35,34 +35,28 @@ class MarketsViewController: UIViewController {
         
         setMarketsTableViewConstraints()
         
-        network.getMarketStats(srcCurrency: "btc", dstCurrency: "usdt") { (success, json) in
-            if success {
-                DispatchQueue.main.async {
-                    self.marketData = json
-                    self.marketsTableView.reloadData()
-                }
-            }
-        }
+        sendCoinsRequests()
     }
 }
 
 extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return marketState.symbol.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "marketsCell", for: indexPath) as! MarketsCell
         
-        if marketData != nil {
-            if marketData.stats.btcRls.dayChange.contains("-") {
+        if marketState.symbol.count > 0 {
+            if marketState.dayChange[indexPath.row].contains("-") {
                 cell.dayChangeView.backgroundColor = .systemRed
-                cell.dayChangePercent.text = marketData.stats.btcRls.dayChange
             } else {
                 cell.backgroundColor = .systemGreen
             }
-            cell.symbol.text = "BTC/USDT\n\(String(marketData.stats.btcRls.volumeDst.prefix(10)))"
-            cell.latestPriceLabel.text = String(marketData.stats.btcRls.latest.prefix(5))
+            cell.dayChangePercent.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+            cell.dayChangePercent.text = marketState.dayChange[indexPath.row]
+            cell.symbol.text = marketState.symbol[indexPath.row]
+            cell.latestPriceLabel.text = marketState.latestPrice[indexPath.row]
         }
         
         return cell
@@ -74,6 +68,33 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension MarketsViewController {
+    
+    func sendCoinsRequests() {
+        network.getMarketStats(srcCurrency: "btc", dstCurrency: "usdt") { (success) in
+            if success {
+                self.network.getMarketStats(srcCurrency: "eth", dstCurrency: "usdt") { (success) in
+                    if success {
+                        self.network.getMarketStats(srcCurrency: "ltc", dstCurrency: "usdt") { (success) in
+                            if success {
+                                self.network.getMarketStats(srcCurrency: "xrp", dstCurrency: "usdt") { (success) in
+                                    if success {
+                                        self.network.getMarketStats(srcCurrency: "bnb", dstCurrency: "usdt") { (success) in
+                                            if success {
+                                                DispatchQueue.main.async {
+                                                    self.marketsTableView.reloadData()
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     func setMarketsTableViewConstraints() {
         NSLayoutConstraint.activate([
             marketsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
