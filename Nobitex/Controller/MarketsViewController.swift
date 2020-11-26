@@ -9,9 +9,13 @@ import UIKit
 
 class MarketsViewController: UIViewController {
     
+    lazy let tableView: UITableView = {
+        
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NetworkManager.shared.getMarketInfo(symbol: "USDTIRT")
+        
     }
 }

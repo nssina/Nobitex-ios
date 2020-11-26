@@ -63,4 +63,28 @@ class NetworkManager {
             }
         }.resume()
     }
+    
+    func getMarketStats(srcCurrency: String, dstCurrency: String) {
+        let url = String(format: baseURL + "/market/stats")
+        guard let serviceUrl = URL(string: url) else { return }
+        let parameters = ["srcCurrency" : srcCurrency, "dstCurrency" : dstCurrency]
+        var request = URLRequest(url: serviceUrl)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
+        request.httpBody = httpBody
+        
+        let session = URLSession.shared
+        
+        session.dataTask(with: request) { (data, response, error) in
+            if let data = data {
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    print(json)
+                } catch {
+                    print(error)
+                }
+            }
+        }.resume()
+    }
 }
