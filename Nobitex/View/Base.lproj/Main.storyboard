@@ -16,14 +16,49 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" systemColor="systemGreenColor"/>
                     </tabBar>
                     <connections>
                         <segue destination="bjb-JJ-4sv" kind="relationship" relationship="viewControllers" id="JiX-E4-lS6"/>
+                        <segue destination="Q8K-CL-DLR" kind="relationship" relationship="viewControllers" id="Yxs-y0-wOi"/>
+                        <segue destination="M1K-6X-7kA" kind="relationship" relationship="viewControllers" id="2IW-sY-2FI"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fZw-pc-fmM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3218" y="-636"/>
+        </scene>
+        <!--My Wallets-->
+        <scene sceneID="YHj-wI-BdG">
+            <objects>
+                <viewController id="Q8K-CL-DLR" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="act-Za-MqM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="UQk-wy-rTp"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="My Wallets" image="creditcard.fill" catalog="system" id="u9h-d9-YP6"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1ey-rj-aV4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2329" y="-318"/>
+        </scene>
+        <!--Account-->
+        <scene sceneID="E9Z-zj-78t">
+            <objects>
+                <viewController id="M1K-6X-7kA" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="22H-k6-lcg">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="IMd-ce-tuD"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Account" image="person.crop.square.fill" catalog="system" id="HQL-hy-Z5Z"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f31-6M-BuI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2329" y="402"/>
         </scene>
         <!--Markets-->
         <scene sceneID="Q75-nN-XIZ">
@@ -35,7 +70,7 @@
                         <viewLayoutGuide key="safeArea" id="rZd-fT-hoa"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Markets" id="dTz-M3-25S"/>
+                    <tabBarItem key="tabBarItem" title="Markets" image="chart.bar.xaxis" catalog="system" id="dTz-M3-25S"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qJc-rN-kIB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -43,8 +78,14 @@
         </scene>
     </scenes>
     <resources>
+        <image name="chart.bar.xaxis" catalog="system" width="128" height="98"/>
+        <image name="creditcard.fill" catalog="system" width="128" height="88"/>
+        <image name="person.crop.square.fill" catalog="system" width="128" height="114"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
