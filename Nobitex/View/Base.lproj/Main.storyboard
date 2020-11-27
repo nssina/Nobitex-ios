@@ -90,7 +90,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6No-b6-S51" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-81" y="-1029"/>
+            <point key="canvasLocation" x="-825" y="-1028"/>
         </scene>
         <!--Markets-->
         <scene sceneID="idH-5p-eNy">
@@ -110,24 +110,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hp2-0H-2NO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2328.75" y="-1026.7605633802816"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="c6z-4N-h7h">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bzT-h2-1Kf" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MCs-WK-LFg">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="SJc-MZ-gub" kind="relationship" relationship="rootViewController" id="sHf-sV-dmo"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Iy6-KV-2OL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-831" y="-1028"/>
         </scene>
     </scenes>
     <resources>

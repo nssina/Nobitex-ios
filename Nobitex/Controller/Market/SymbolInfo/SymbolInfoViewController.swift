@@ -10,7 +10,7 @@ import UIKit
 class SymbolInfoViewController: UIViewController {
     
     static let shared = SymbolInfoViewController()
-    
+    private let timeConverter = TimeConverter.shared
     var tradesModel: TradesModel!
     var symbolName: String = ""
     
@@ -22,7 +22,6 @@ class SymbolInfoViewController: UIViewController {
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        
         tableView.register(SymbolInfoCell.self, forCellReuseIdentifier: "symbolInfoCell")
         
         return tableView
@@ -31,30 +30,59 @@ class SymbolInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(symbolName)
+        view.addSubview(symInfoTableView)
+        setSymInfoConstraints()
         
+        print(tradesModel.trades)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        let width = self.view.frame.width
+        let navigationBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: width, height: 44))
+        self.view.addSubview(navigationBar);
+        let navigationItem = UINavigationItem(title: symbolName)
+        let doneBtn = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: nil, action: #selector(dismissView))
+        navigationItem.rightBarButtonItem = doneBtn
+        navigationBar.setItems([navigationItem], animated: false)
     }
 }
 
 extension SymbolInfoViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return tradesModel.trades.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "symbolInfoCell", for: indexPath) as! SymbolInfoCell
+        
+        cell.price.text = tradesModel.trades[indexPath.row].price
+        
+        cell.time.text = timeConverter.setTimestamp(epochTime: "\(tradesModel.trades[indexPath.row].time)")
+        
+        if tradesModel.trades[indexPath.row].type == "sell" {
+            cell.price.textColor = .systemRed
+        } else {
+            cell.price.textColor = .systemGreen
+        }
+        
+        cell.volume.text = tradesModel.trades[indexPath.row].volume
         
         return cell
     }
 }
 
 extension SymbolInfoViewController {
-    func setMarketsTableViewConstraints() {
+    func setSymInfoConstraints() {
         NSLayoutConstraint.activate([
             symInfoTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             symInfoTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            symInfoTableView.topAnchor.constraint(equalTo: view.topAnchor),
+            symInfoTableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
             symInfoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+    
+    @objc func dismissView() {
+        dismiss(animated: true, completion: nil)
     }
 }

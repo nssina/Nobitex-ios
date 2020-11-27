@@ -89,7 +89,9 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
                 if success {
                     symbolVc.symbolName = symbol
                     symbolVc.tradesModel = response
-                    self.navigationController?.present(symbolVc, animated: true, completion: nil)
+                    DispatchQueue.main.async {
+                        self.navigationController?.present(symbolVc, animated: true, completion: nil)
+                    }
                 }
             }
         default:
@@ -115,8 +117,24 @@ extension MarketsViewController {
                                     if success {
                                         self.network.getMarketStats(srcCurrency: "bnb", dstCurrency: "usdt") { (success) in
                                             if success {
-                                                DispatchQueue.main.async {
-                                                    self.marketsTableView.reloadData()
+                                                self.network.getMarketStats(srcCurrency: "bch", dstCurrency: "usdt") { (seccess) in
+                                                    if success {
+                                                        self.network.getMarketStats(srcCurrency: "eos", dstCurrency: "usdt") { (seccess) in
+                                                            if success {
+                                                                self.network.getMarketStats(srcCurrency: "trx", dstCurrency: "usdt") { (seccess) in
+                                                                    if success {
+                                                                        self.network.getMarketStats(srcCurrency: "pmn", dstCurrency: "usdt") { (seccess) in
+                                                                            if success {
+                                                                                DispatchQueue.main.async {
+                                                                                    self.marketsTableView.reloadData()
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
@@ -141,8 +159,20 @@ extension MarketsViewController {
                                     if success {
                                         self.network.getMarketStats(srcCurrency: "bnb", dstCurrency: "rls") { (success) in
                                             if success {
-                                                DispatchQueue.main.async {
-                                                    self.marketsTableView.reloadData()
+                                                self.network.getMarketStats(srcCurrency: "bch", dstCurrency: "rls") { (seccess) in
+                                                    if success {
+                                                        self.network.getMarketStats(srcCurrency: "eos", dstCurrency: "rls") { (seccess) in
+                                                            if success {
+                                                                self.network.getMarketStats(srcCurrency: "trx", dstCurrency: "rls") { (seccess) in
+                                                                    if success {
+                                                                        DispatchQueue.main.async {
+                                                                            self.marketsTableView.reloadData()
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
