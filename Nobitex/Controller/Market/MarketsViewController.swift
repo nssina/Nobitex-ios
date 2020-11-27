@@ -11,6 +11,9 @@ class MarketsViewController: UIViewController {
     
     private let network = NetworkManager.shared
     private let marketState = MarketStateModel.shared
+    private let segment: UISegmentedControl = UISegmentedControl(items: ["USDT", "IRT"])
+    private let lightTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+    private let darkTitleTextAttributes  = [NSAttributedString.Key.foregroundColor: UIColor.black]
     
     private lazy var marketsTableView: UITableView = {
         let tableView = UITableView()
@@ -35,7 +38,41 @@ class MarketsViewController: UIViewController {
         
         setMarketsTableViewConstraints()
         
-        sendCoinsRequests()
+        addSegmentedControl()
+        
+        sendUsdtCoinsRequests()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if #available(iOS 13.0, *) {
+            let userInterfaceStyle = traitCollection.userInterfaceStyle
+            if userInterfaceStyle == .dark {
+                segment.setTitleTextAttributes(lightTitleTextAttributes, for: .normal)
+                segment.setTitleTextAttributes(lightTitleTextAttributes, for: .selected)
+            } else if userInterfaceStyle == .light {
+                segment.setTitleTextAttributes(darkTitleTextAttributes, for: .normal)
+                segment.setTitleTextAttributes(lightTitleTextAttributes, for: .selected)
+            } else {
+                print("unspesified")
+            }
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if #available(iOS 13.0, *) {
+            let userInterfaceStyle = traitCollection.userInterfaceStyle
+            if userInterfaceStyle == .dark {
+                segment.setTitleTextAttributes(lightTitleTextAttributes, for: .normal)
+                segment.setTitleTextAttributes(lightTitleTextAttributes, for: .selected)
+            } else if userInterfaceStyle == .light {
+                segment.setTitleTextAttributes(darkTitleTextAttributes, for: .normal)
+                segment.setTitleTextAttributes(lightTitleTextAttributes, for: .selected)
+            } else {
+                print("unspesified")
+            }
+        }
     }
 }
 
@@ -69,7 +106,7 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension MarketsViewController {
     
-    func sendCoinsRequests() {
+    func sendUsdtCoinsRequests() {
         network.getMarketStats(srcCurrency: "btc", dstCurrency: "usdt") { (success) in
             if success {
                 self.network.getMarketStats(srcCurrency: "eth", dstCurrency: "usdt") { (success) in
@@ -95,6 +132,32 @@ extension MarketsViewController {
         }
     }
     
+    func sendRlsCoinsRequests() {
+        network.getMarketStats(srcCurrency: "btc", dstCurrency: "rls") { (success) in
+            if success {
+                self.network.getMarketStats(srcCurrency: "eth", dstCurrency: "rls") { (success) in
+                    if success {
+                        self.network.getMarketStats(srcCurrency: "ltc", dstCurrency: "rls") { (success) in
+                            if success {
+                                self.network.getMarketStats(srcCurrency: "xrp", dstCurrency: "rls") { (success) in
+                                    if success {
+                                        self.network.getMarketStats(srcCurrency: "bnb", dstCurrency: "rls") { (success) in
+                                            if success {
+                                                DispatchQueue.main.async {
+                                                    self.marketsTableView.reloadData()
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     func setMarketsTableViewConstraints() {
         NSLayoutConstraint.activate([
             marketsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -102,5 +165,31 @@ extension MarketsViewController {
             marketsTableView.topAnchor.constraint(equalTo: view.topAnchor),
             marketsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+    
+    func addSegmentedControl() {
+        segment.setWidth((view.frame.width / 2) - 10, forSegmentAt: 0)
+        segment.setWidth((view.frame.width / 2) - 10, forSegmentAt: 1)
+        segment.selectedSegmentIndex = 0
+        self.navigationItem.titleView = segment
+        segment.selectedSegmentTintColor = .systemGreen
+        segment.addTarget(self, action: #selector(segmentValueChanged), for: .allEvents)
+    }
+    
+    @objc func segmentValueChanged() {
+        
+        marketState.dayChange.removeAll()
+        marketState.latestPrice.removeAll()
+        marketState.symbol.removeAll()
+        marketsTableView.reloadData()
+        
+        switch segment.selectedSegmentIndex {
+        case 0:
+            sendUsdtCoinsRequests()
+        case 1:
+            sendRlsCoinsRequests()
+        default:
+            break
+        }
     }
 }

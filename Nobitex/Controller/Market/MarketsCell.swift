@@ -63,11 +63,11 @@ class MarketsCell: UITableViewCell {
     
     func constraintView() {
         NSLayoutConstraint.activate([
-            symbol.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            symbol.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
             symbol.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            latestPriceLabel.centerYAnchor.constraint(equalTo: symbol.centerYAnchor),
+            latestPriceLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             latestPriceLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            dayChangeView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            dayChangeView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
             dayChangeView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             dayChangeView.widthAnchor.constraint(equalToConstant: 80),
             dayChangeView.heightAnchor.constraint(equalToConstant: 30),

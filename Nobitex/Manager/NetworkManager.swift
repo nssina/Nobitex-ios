@@ -84,10 +84,14 @@ class NetworkManager {
                     let symbol = stats["\(srcCurrency)-\(dstCurrency)"] as! [String:Any]
                     let latestPrice = symbol["latest"] as! String
                     let dayChange = symbol["dayChange"] as! String
+                    let formatedSymbol = String("\(srcCurrency)").uppercased()
+                    let formatedLastPrice = String(latestPrice.prefix(5))
                     
-                    self.marketState.symbol.append(String("\(srcCurrency)\(dstCurrency)").uppercased())
-                    self.marketState.latestPrice.append(String(latestPrice.prefix(5)))
-                    self.marketState.dayChange.append(dayChange)
+                    if !self.marketState.symbol.contains(formatedSymbol) {
+                        self.marketState.symbol.append(formatedSymbol)
+                        self.marketState.latestPrice.append(formatedLastPrice)
+                        self.marketState.dayChange.append(dayChange)
+                    }
                     
                     completion(true)
                     
