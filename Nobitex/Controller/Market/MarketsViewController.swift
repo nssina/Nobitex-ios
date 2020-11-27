@@ -51,7 +51,7 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
             if marketState.dayChange[indexPath.row].contains("-") {
                 cell.dayChangeView.backgroundColor = .systemRed
             } else {
-                cell.backgroundColor = .systemGreen
+                cell.dayChangeView.backgroundColor = .systemGreen
             }
             cell.dayChangePercent.font = UIFont.systemFont(ofSize: 16, weight: .bold)
             cell.dayChangePercent.text = marketState.dayChange[indexPath.row]
