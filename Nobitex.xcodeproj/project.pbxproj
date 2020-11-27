@@ -17,6 +17,7 @@
 		D32AE0A9256EEA530067887C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32AE0A8256EEA530067887C /* NetworkManager.swift */; };
 		D367E9D4256FFEFA00B1F798 /* MarketStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D367E9D3256FFEFA00B1F798 /* MarketStateModel.swift */; };
 		D367E9D8257007A100B1F798 /* MarketsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D367E9D7257007A100B1F798 /* MarketsCell.swift */; };
+		D39294532571107800E8EE28 /* TradesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39294522571107800E8EE28 /* TradesModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		D32AE0A8256EEA530067887C /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		D367E9D3256FFEFA00B1F798 /* MarketStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketStateModel.swift; sourceTree = "<group>"; };
 		D367E9D7257007A100B1F798 /* MarketsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketsCell.swift; sourceTree = "<group>"; };
+		D39294522571107800E8EE28 /* TradesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradesModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 			children = (
 				D32AE09D256EDC320067887C /* LoginModel.swift */,
 				D367E9D3256FFEFA00B1F798 /* MarketStateModel.swift */,
+				D39294522571107800E8EE28 /* TradesModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D39294532571107800E8EE28 /* TradesModel.swift in Sources */,
 				D32AE081256ED9ED0067887C /* AppDelegate.swift in Sources */,
 				D32AE09E256EDC320067887C /* LoginModel.swift in Sources */,
 				D32AE0A9256EEA530067887C /* NetworkManager.swift in Sources */,

@@ -101,4 +101,29 @@ class NetworkManager {
             }
         }.resume()
     }
+    
+    func getTrades(symbol: String, completion: @escaping (Bool, TradesModel) -> ()) {
+        let url = String(format: baseURL + "/v2/trades")
+        guard let serviceUrl = URL(string: url) else { return }
+        let parameters = ["symbol" : symbol]
+        var request = URLRequest(url: serviceUrl)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
+        request.httpBody = httpBody
+        
+        let session = URLSession.shared
+        
+        session.dataTask(with: request) { (data, response, error) in
+            if let data = data {
+                do {
+                    let model: TradesModel!
+                    model = try JSONDecoder().decode(TradesModel.self, from: data)
+                    completion(true, model)
+                } catch {
+                    print(error)
+                }
+            }
+        }.resume()
+    }
 }
