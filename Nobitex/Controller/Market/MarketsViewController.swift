@@ -40,13 +40,7 @@ class MarketsViewController: UIViewController {
         
         addSegmentedControl()
         
-        network.getTrades(symbol: "BTCUSDT") { (success, model) in
-            if success {
-                print(model)
-            }
-        }
-        
-//        sendUsdtCoinsRequests()
+        sendUsdtCoinsRequests()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
