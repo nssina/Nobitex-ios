@@ -11,9 +11,8 @@ class MarketsViewController: UIViewController {
     
     private let network = NetworkManager.shared
     private let marketState = MarketStateModel.shared
+    private let symbolInfo = SymbolInfoViewController.shared
     private let segment: UISegmentedControl = UISegmentedControl(items: ["USDT", "IRT"])
-    private let lightTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-    private let darkTitleTextAttributes  = [NSAttributedString.Key.foregroundColor: UIColor.black]
     
     private lazy var marketsTableView: UITableView = {
         let tableView = UITableView()
@@ -42,38 +41,6 @@ class MarketsViewController: UIViewController {
         
         sendUsdtCoinsRequests()
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        if #available(iOS 13.0, *) {
-            let userInterfaceStyle = traitCollection.userInterfaceStyle
-            if userInterfaceStyle == .dark {
-                segment.setTitleTextAttributes(lightTitleTextAttributes, for: .normal)
-                segment.setTitleTextAttributes(lightTitleTextAttributes, for: .selected)
-            } else if userInterfaceStyle == .light {
-                segment.setTitleTextAttributes(darkTitleTextAttributes, for: .normal)
-                segment.setTitleTextAttributes(lightTitleTextAttributes, for: .selected)
-            } else {
-                print("unspesified")
-            }
-        }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if #available(iOS 13.0, *) {
-            let userInterfaceStyle = traitCollection.userInterfaceStyle
-            if userInterfaceStyle == .dark {
-                segment.setTitleTextAttributes(lightTitleTextAttributes, for: .normal)
-                segment.setTitleTextAttributes(lightTitleTextAttributes, for: .selected)
-            } else if userInterfaceStyle == .light {
-                segment.setTitleTextAttributes(darkTitleTextAttributes, for: .normal)
-                segment.setTitleTextAttributes(lightTitleTextAttributes, for: .selected)
-            } else {
-                print("unspesified")
-            }
-        }
-    }
 }
 
 extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
@@ -97,6 +64,37 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
         }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard let symbolVc = self.storyboard?.instantiateViewController(withIdentifier: "SymbolInfoVC") as? SymbolInfoViewController else { print("check"); return }
+        
+        switch segment.selectedSegmentIndex {
+        case 0:
+            let symbol = "\(marketState.symbol[indexPath.row]) / USDT"
+            network.getTrades(symbol: "\(marketState.symbol[indexPath.row])USDT") { (success, response) in
+                if success {
+                    symbolVc.symbolName = symbol
+                    symbolVc.tradesModel = response
+                    DispatchQueue.main.async {
+                        self.navigationController?.present(symbolVc, animated: true, completion: nil)
+                    }
+                }
+            }
+        case 1:
+            let symbol = "\(marketState.symbol[indexPath.row]) / IRT"
+            network.getTrades(symbol: "\(marketState.symbol[indexPath.row])IRT") { (success, response) in
+                if success {
+                    symbolVc.symbolName = symbol
+                    symbolVc.tradesModel = response
+                    self.navigationController?.present(symbolVc, animated: true, completion: nil)
+                }
+            }
+        default:
+            break
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -191,5 +189,11 @@ extension MarketsViewController {
         default:
             break
         }
+    }
+    
+    func presentVc(id: String) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: id)
+        present(vc, animated: true, completion: nil)
     }
 }
