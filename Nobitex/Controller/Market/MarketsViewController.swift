@@ -57,6 +57,7 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
             } else {
                 cell.dayChangeView.backgroundColor = .systemGreen
             }
+            cell.coinIcon.image = UIImage(named: marketState.symbol[indexPath.row])
             cell.dayChangePercent.font = UIFont.systemFont(ofSize: 16, weight: .bold)
             cell.dayChangePercent.text = marketState.dayChange[indexPath.row]
             cell.symbol.text = marketState.symbol[indexPath.row]
@@ -123,7 +124,7 @@ extension MarketsViewController {
                                                             if success {
                                                                 self.network.getMarketStats(srcCurrency: "trx", dstCurrency: "usdt") { (seccess) in
                                                                     if success {
-                                                                        self.network.getMarketStats(srcCurrency: "pmn", dstCurrency: "usdt") { (seccess) in
+                                                                        self.network.getMarketStats(srcCurrency: "xlm", dstCurrency: "usdt") { (seccess) in
                                                                             if success {
                                                                                 DispatchQueue.main.async {
                                                                                     self.marketsTableView.reloadData()
