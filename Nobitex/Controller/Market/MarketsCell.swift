@@ -43,6 +43,15 @@ class MarketsCell: UITableViewCell {
         return label
     }()
     
+    lazy var coinIcon: UIImageView = {
+        var imageView = UIImageView()
+        
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return imageView
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -58,12 +67,17 @@ class MarketsCell: UITableViewCell {
         contentView.addSubview(symbol)
         contentView.addSubview(dayChangeView)
         contentView.addSubview(latestPriceLabel)
+        contentView.addSubview(coinIcon)
         dayChangeView.addSubview(dayChangePercent)
     }
     
     func constraintView() {
         NSLayoutConstraint.activate([
-            symbol.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            coinIcon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            coinIcon.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            coinIcon.widthAnchor.constraint(equalToConstant: 30),
+            coinIcon.heightAnchor.constraint(equalToConstant: 30),
+            symbol.leadingAnchor.constraint(equalTo: coinIcon.leadingAnchor, constant: 40),
             symbol.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             latestPriceLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             latestPriceLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
