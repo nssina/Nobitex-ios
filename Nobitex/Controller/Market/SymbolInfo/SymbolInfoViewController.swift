@@ -32,8 +32,6 @@ class SymbolInfoViewController: UIViewController {
         
         view.addSubview(symInfoTableView)
         setSymInfoConstraints()
-        
-        print(tradesModel.trades)
     }
     
     override func viewWillLayoutSubviews() {
@@ -58,7 +56,7 @@ extension SymbolInfoViewController: UITableViewDataSource, UITableViewDelegate {
         
         cell.price.text = tradesModel.trades[indexPath.row].price
         
-        cell.time.text = timeConverter.setTimestamp(epochTime: "\(tradesModel.trades[indexPath.row].time)")
+        cell.time.text = timeConverter.setTimestamp(epochTime: tradesModel.trades[indexPath.row].time)
         
         if tradesModel.trades[indexPath.row].type == "sell" {
             cell.price.textColor = .systemRed
