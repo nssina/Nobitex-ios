@@ -58,6 +58,7 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
                 cell.dayChangeView.backgroundColor = .systemGreen
             }
             cell.coinIcon.image = UIImage(named: marketState.symbol[indexPath.row])
+            cell.coinIcon.layer.cornerRadius = (cell.coinIcon.frame.width) / 2
             cell.dayChangePercent.font = UIFont.systemFont(ofSize: 16, weight: .bold)
             cell.dayChangePercent.text = marketState.dayChange[indexPath.row]
             cell.symbol.text = marketState.symbol[indexPath.row]

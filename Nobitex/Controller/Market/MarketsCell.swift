@@ -46,7 +46,8 @@ class MarketsCell: UITableViewCell {
     lazy var coinIcon: UIImageView = {
         var imageView = UIImageView()
         
-        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleToFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         return imageView
