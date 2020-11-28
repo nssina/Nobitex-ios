@@ -46,11 +46,7 @@ class MarketsViewController: UIViewController {
 extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if marketState.symbol.count > 0 {
-            return marketState.symbol.count
-        } else {
-            return 1
-        }
+        return marketState.symbol.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -65,7 +61,7 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
             cell.coinIcon.image = UIImage(named: marketState.symbol[indexPath.row])
             cell.coinIcon.layer.cornerRadius = 15
             cell.dayChangePercent.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-            cell.dayChangePercent.text = marketState.dayChange[indexPath.row]
+            cell.dayChangePercent.text = "\(marketState.dayChange[indexPath.row])%"
             cell.symbol.text = marketState.symbol[indexPath.row]
             cell.latestPriceLabel.text = marketState.latestPrice[indexPath.row]
         }

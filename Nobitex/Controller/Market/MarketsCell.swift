@@ -39,6 +39,7 @@ class MarketsCell: UITableViewCell {
     lazy var dayChangePercent: UILabel = {
         var label = UILabel()
         label.text = "Loading..."
+        label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
