@@ -40,6 +40,14 @@ class MarketsViewController: UIViewController {
         addSegmentedControl()
         
         sendUsdtCoinsRequests()
+        
+        Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { (timer) in
+            self.marketState.dayChange.removeAll()
+            self.marketState.latestPrice.removeAll()
+            self.marketState.symbol.removeAll()
+            self.marketsTableView.reloadData()
+            self.sendUsdtCoinsRequests()
+        }
     }
 }
 
@@ -199,6 +207,12 @@ extension MarketsViewController {
     }
     
     func addSegmentedControl() {
+        
+        marketState.dayChange.removeAll()
+        marketState.latestPrice.removeAll()
+        marketState.symbol.removeAll()
+        marketsTableView.reloadData()
+        
         segment.setWidth((view.frame.width / 2) - 10, forSegmentAt: 0)
         segment.setWidth((view.frame.width / 2) - 10, forSegmentAt: 1)
         segment.selectedSegmentIndex = 0
@@ -208,11 +222,6 @@ extension MarketsViewController {
     }
     
     @objc func segmentValueChanged() {
-        
-        marketState.dayChange.removeAll()
-        marketState.latestPrice.removeAll()
-        marketState.symbol.removeAll()
-        marketsTableView.reloadData()
         
         switch segment.selectedSegmentIndex {
         case 0:
