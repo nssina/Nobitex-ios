@@ -10,10 +10,10 @@ import UIKit
 class MarketsViewController: UIViewController {
     
     private let network = NetworkManager.shared
+    private var refreshControl = UIRefreshControl()
     private let marketState = MarketStateModel.shared
     private let symbolInfo = SymbolInfoViewController.shared
     private let segment: UISegmentedControl = UISegmentedControl(items: ["USDT", "IRT"])
-    
     private lazy var marketsTableView: UITableView = {
         let tableView = UITableView()
         
@@ -39,14 +39,14 @@ class MarketsViewController: UIViewController {
         
         addSegmentedControl()
         
-        sendUsdtCoinsRequests()
+        addRefreshControll()
         
-        Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { (timer) in
-            self.marketState.dayChange.removeAll()
-            self.marketState.latestPrice.removeAll()
-            self.marketState.symbol.removeAll()
-            self.marketsTableView.reloadData()
-            self.sendUsdtCoinsRequests()
+        sendUsdtCoinsRequests { (success) in
+            if success {
+                DispatchQueue.main.async {
+                    self.marketsTableView.reloadData()
+                }
+            }
         }
     }
 }
@@ -117,7 +117,7 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension MarketsViewController {
     
-    func sendUsdtCoinsRequests() {
+    func sendUsdtCoinsRequests(completion: @escaping (Bool) -> ()) {
         network.getMarketStats(srcCurrency: "btc", dstCurrency: "usdt") { (success) in
             if success {
                 self.network.getMarketStats(srcCurrency: "eth", dstCurrency: "usdt") { (success) in
@@ -136,9 +136,7 @@ extension MarketsViewController {
                                                                     if success {
                                                                         self.network.getMarketStats(srcCurrency: "xlm", dstCurrency: "usdt") { (seccess) in
                                                                             if success {
-                                                                                DispatchQueue.main.async {
-                                                                                    self.marketsTableView.reloadData()
-                                                                                }
+                                                                                completion(true)
                                                                             }
                                                                         }
                                                                     }
@@ -221,11 +219,34 @@ extension MarketsViewController {
         segment.addTarget(self, action: #selector(segmentValueChanged), for: .allEvents)
     }
     
+    func addRefreshControll() {
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        marketsTableView.addSubview(refreshControl)
+    }
+    
+    @objc func refresh(_ sender: AnyObject) {
+        sendUsdtCoinsRequests { (success) in
+            if success {
+                DispatchQueue.main.async {
+                    self.marketsTableView.reloadData()
+                    self.refreshControl.endRefreshing()
+                }
+            }
+        }
+    }
+    
     @objc func segmentValueChanged() {
         
         switch segment.selectedSegmentIndex {
         case 0:
-            sendUsdtCoinsRequests()
+            sendUsdtCoinsRequests { (success) in
+                if success {
+                    DispatchQueue.main.async {
+                        self.marketsTableView.reloadData()
+                    }
+                }
+            }
         case 1:
             sendRlsCoinsRequests()
         default:
