@@ -87,8 +87,6 @@ class NetworkManager {
                     let formatedSymbol = String("\(srcCurrency)").uppercased()
                     let formatedLastPrice = String(latestPrice.prefix(8))
                     
-                    print(latestPrice)
-                    
                     if !self.marketState.symbol.contains(formatedSymbol) {
                         self.marketState.symbol.append(formatedSymbol)
                         self.marketState.latestPrice.append(formatedLastPrice)

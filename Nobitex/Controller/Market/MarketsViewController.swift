@@ -61,11 +61,13 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "marketsCell", for: indexPath) as! MarketsCell
         
         if marketState.symbol.count > 0 {
+            
             if marketState.dayChange[indexPath.row].contains("-") {
                 cell.dayChangeView.backgroundColor = .systemRed
             } else {
                 cell.dayChangeView.backgroundColor = .systemGreen
             }
+            
             cell.coinIcon.image = UIImage(named: marketState.symbol[indexPath.row])
             cell.coinIcon.layer.cornerRadius = 15
             cell.dayChangePercent.font = UIFont.systemFont(ofSize: 16, weight: .bold)
@@ -116,8 +118,8 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension MarketsViewController {
-    
     func sendUsdtCoinsRequests(completion: @escaping (Bool) -> ()) {
+        
         network.getMarketStats(srcCurrency: "btc", dstCurrency: "usdt") { (success) in
             if success {
                 self.network.getMarketStats(srcCurrency: "eth", dstCurrency: "usdt") { (success) in
@@ -226,11 +228,16 @@ extension MarketsViewController {
     }
     
     @objc func refresh(_ sender: AnyObject) {
-        sendUsdtCoinsRequests { (success) in
-            if success {
-                DispatchQueue.main.async {
-                    self.marketsTableView.reloadData()
-                    self.refreshControl.endRefreshing()
+        clearArrays { (clear) in
+            if clear {
+                print(self.marketState.symbol)
+                self.sendUsdtCoinsRequests { (success) in
+                    if success {
+                        DispatchQueue.main.async {
+                            self.marketsTableView.reloadData()
+                            self.refreshControl.endRefreshing()
+                        }
+                    }
                 }
             }
         }
@@ -252,6 +259,13 @@ extension MarketsViewController {
         default:
             break
         }
+    }
+    
+    func clearArrays(completion: @escaping (Bool) -> ()) {
+        marketState.dayChange.removeAll()
+        marketState.latestPrice.removeAll()
+        marketState.symbol.removeAll()
+        completion(true)
     }
     
     func presentVc(id: String) {
