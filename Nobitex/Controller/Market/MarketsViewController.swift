@@ -14,33 +14,25 @@ class MarketsViewController: UIViewController {
     private let marketState = MarketStateModel.shared
     private let symbolInfo = SymbolInfoViewController.shared
     private let segment: UISegmentedControl = UISegmentedControl(items: ["USDT", "IRT"])
+    
     private lazy var marketsTableView: UITableView = {
         let tableView = UITableView()
-        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        
         tableView.register(MarketsCell.self, forCellReuseIdentifier: "marketsCell")
-        
         return tableView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.addSubview(marketsTableView)
-        
         navigationController?.navigationBar.prefersLargeTitles = true
-        
         setMarketsTableViewConstraints()
-        
         addSegmentedControl()
-        
         addRefreshControll()
-        
         sendUsdtCoinsRequests { (success) in
             if success {
                 DispatchQueue.main.async {
@@ -82,7 +74,7 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard let symbolVc = self.storyboard?.instantiateViewController(withIdentifier: "SymbolInfoVC") as? SymbolInfoViewController else { print("check"); return }
+        guard let symbolVc = self.storyboard?.instantiateViewController(withIdentifier: "SymbolInfoVC") as? SymbolInfoViewController else { return }
         
         switch segment.selectedSegmentIndex {
         case 0:
@@ -159,7 +151,7 @@ extension MarketsViewController {
         }
     }
     
-    func sendRlsCoinsRequests() {
+    func sendRlsCoinsRequests(completion: @escaping (Bool) -> ()) {
         network.getMarketStats(srcCurrency: "btc", dstCurrency: "rls") { (success) in
             if success {
                 self.network.getMarketStats(srcCurrency: "eth", dstCurrency: "rls") { (success) in
@@ -176,9 +168,7 @@ extension MarketsViewController {
                                                             if success {
                                                                 self.network.getMarketStats(srcCurrency: "trx", dstCurrency: "rls") { (seccess) in
                                                                     if success {
-                                                                        DispatchQueue.main.async {
-                                                                            self.marketsTableView.reloadData()
-                                                                        }
+                                                                        completion(true)
                                                                     }
                                                                 }
                                                             }
@@ -230,34 +220,58 @@ extension MarketsViewController {
     @objc func refresh(_ sender: AnyObject) {
         clearArrays { (clear) in
             if clear {
-                print(self.marketState.symbol)
-                self.sendUsdtCoinsRequests { (success) in
-                    if success {
-                        DispatchQueue.main.async {
-                            self.marketsTableView.reloadData()
-                            self.refreshControl.endRefreshing()
+                switch self.segment.selectedSegmentIndex {
+                case 0:
+                    self.sendUsdtCoinsRequests { (success) in
+                        if success {
+                            DispatchQueue.main.async {
+                                self.marketsTableView.reloadData()
+                                self.refreshControl.endRefreshing()
+                            }
                         }
                     }
+                case 1:
+                    self.sendRlsCoinsRequests { (success) in
+                        if success {
+                            DispatchQueue.main.async {
+                                self.marketsTableView.reloadData()
+                                self.refreshControl.endRefreshing()
+                            }
+                        }
+                    }
+                default:
+                    break
                 }
             }
         }
     }
     
     @objc func segmentValueChanged() {
-        
-        switch segment.selectedSegmentIndex {
-        case 0:
-            sendUsdtCoinsRequests { (success) in
-                if success {
-                    DispatchQueue.main.async {
-                        self.marketsTableView.reloadData()
+        clearArrays { (clear) in
+            if clear {
+                switch self.segment.selectedSegmentIndex {
+                case 0:
+                    self.sendUsdtCoinsRequests { (success) in
+                        if success {
+                            DispatchQueue.main.async {
+                                self.marketsTableView.reloadData()
+                                self.refreshControl.endRefreshing()
+                            }
+                        }
                     }
+                case 1:
+                    self.sendRlsCoinsRequests { (success) in
+                        if success {
+                            DispatchQueue.main.async {
+                                self.marketsTableView.reloadData()
+                                self.refreshControl.endRefreshing()
+                            }
+                        }
+                    }
+                default:
+                    break
                 }
             }
-        case 1:
-            sendRlsCoinsRequests()
-        default:
-            break
         }
     }
     
