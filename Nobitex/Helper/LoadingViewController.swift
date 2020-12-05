@@ -18,12 +18,12 @@ class LoadingViewController: UIViewController {
     func showWaiting() {
             let screenSize = UIScreen.main.bounds
             DispatchQueue.main.async {
-                self.container.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height)
-                self.container.backgroundColor = UIColor(white: 0, alpha: 0.0)
+                self.container.frame = CGRect(x: 0, y: 0, width: screenSize.width/2, height: screenSize.height/2)
+                self.container.backgroundColor = .systemBackground
                 
                 self.indicatorView.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
                 self.indicatorView.center = self.container.center
-                self.indicatorView.backgroundColor = UIColor(white: 0, alpha: 0.0)
+                self.indicatorView.backgroundColor = .systemBackground
                 self.indicatorView.clipsToBounds = true
                 self.indicatorView.layer.cornerRadius = 10
                 

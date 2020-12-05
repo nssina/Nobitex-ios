@@ -16,8 +16,44 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        window = UIWindow(frame: windowScene.coordinateSpace.bounds)
+        window?.windowScene = windowScene
+        window?.rootViewController = createTabbar()
+        window?.makeKeyAndVisible()
+        
+        configureNavigationBar()
     }
+    
+    func createMarketsNC() -> UINavigationController {
+        let marketVC = MarketsViewController()
+        marketVC.title = "Markets"
+        marketVC.tabBarItem = UITabBarItem(title: "Markets", image: UIImage(systemName: ""), tag: 0)
+        
+        return UINavigationController(rootViewController: marketVC)
+    }
+    
+    func createWalletsNC() -> UINavigationController {
+        let walletVC = WalletsViewController()
+        walletVC.title = "My Wallets"
+        walletVC.tabBarItem = UITabBarItem(title: "My Wallets", image: UIImage(systemName: ""), tag: 1)
+        
+        return UINavigationController(rootViewController: walletVC)
+    }
+    
+    func createTabbar() -> UITabBarController {
+        let tabbar = UITabBarController()
+        UITabBar.appearance().tintColor = .systemPurple
+        tabbar.viewControllers = [createMarketsNC(), createWalletsNC()]
+        
+        return tabbar
+    }
+    
+    func configureNavigationBar() {
+        UINavigationBar.appearance().tintColor = .systemPurple
+    }
+    
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
