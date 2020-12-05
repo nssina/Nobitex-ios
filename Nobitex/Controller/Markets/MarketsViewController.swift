@@ -12,7 +12,6 @@ class MarketsViewController: UIViewController {
     private let network = NetworkManager.shared
     private var refreshControl = UIRefreshControl()
     private let marketState = MarketStateModel.shared
-    private let loading = LoadingViewController.shared
     private let symbolInfo = SymbolInfoViewController.shared
     private let segment: UISegmentedControl = UISegmentedControl(items: ["USDT", "IRT"])
     
@@ -75,7 +74,7 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        guard let symbolVc = self.storyboard?.instantiateViewController(withIdentifier: "SymbolInfoVC") as? SymbolInfoViewController else { return }
+        let symbolVc = SymbolInfoViewController()
         
         switch segment.selectedSegmentIndex {
         case 0:
@@ -112,7 +111,7 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension MarketsViewController {
     func sendUsdtCoinsRequests(completion: @escaping (Bool) -> ()) {
-        loading.showWaiting()
+        showLoadingView()
         network.getMarketStats(srcCurrency: "btc", dstCurrency: "usdt") { (success) in
             if success {
                 self.network.getMarketStats(srcCurrency: "eth", dstCurrency: "usdt") { (success) in
@@ -131,8 +130,8 @@ extension MarketsViewController {
                                                                     if success {
                                                                         self.network.getMarketStats(srcCurrency: "xlm", dstCurrency: "usdt") { (seccess) in
                                                                             if success {
+                                                                                self.dismissLoadingView()
                                                                                 completion(true)
-                                                                                self.loading.hideWaiting()
                                                                             }
                                                                         }
                                                                     }
@@ -154,7 +153,7 @@ extension MarketsViewController {
     }
     
     func sendRlsCoinsRequests(completion: @escaping (Bool) -> ()) {
-        loading.showWaiting()
+        showLoadingView()
         network.getMarketStats(srcCurrency: "btc", dstCurrency: "rls") { (success) in
             if success {
                 self.network.getMarketStats(srcCurrency: "eth", dstCurrency: "rls") { (success) in
@@ -171,8 +170,8 @@ extension MarketsViewController {
                                                             if success {
                                                                 self.network.getMarketStats(srcCurrency: "trx", dstCurrency: "rls") { (seccess) in
                                                                     if success {
+                                                                        self.dismissLoadingView()
                                                                         completion(true)
-                                                                        self.loading.hideWaiting()
                                                                     }
                                                                 }
                                                             }

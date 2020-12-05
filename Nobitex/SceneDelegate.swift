@@ -29,7 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func createMarketsNC() -> UINavigationController {
         let marketVC = MarketsViewController()
         marketVC.title = "Markets"
-        marketVC.tabBarItem = UITabBarItem(title: "Markets", image: UIImage(systemName: ""), tag: 0)
+        marketVC.tabBarItem = UITabBarItem(title: "Markets", image: UIImage(systemName: "chart.bar.xaxis"), tag: 0)
         
         return UINavigationController(rootViewController: marketVC)
     }
@@ -37,7 +37,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func createWalletsNC() -> UINavigationController {
         let walletVC = WalletsViewController()
         walletVC.title = "My Wallets"
-        walletVC.tabBarItem = UITabBarItem(title: "My Wallets", image: UIImage(systemName: ""), tag: 1)
+        walletVC.tabBarItem = UITabBarItem(title: "My Wallets", image: UIImage(systemName: "creditcard.fill"), tag: 1)
         
         return UINavigationController(rootViewController: walletVC)
     }
