@@ -31,7 +31,7 @@ class MarketsViewController: UIViewController {
         view.addSubview(marketsTableView)
         navigationController?.navigationBar.prefersLargeTitles = true
         setMarketsTableViewConstraints()
-        addSegmentedControl()
+//        addSegmentedControl()
         addRefreshControll()
         sendUsdtCoinsRequests { (success) in
             if success {
@@ -130,7 +130,7 @@ extension MarketsViewController {
                                                                     if success {
                                                                         self.network.getMarketStats(srcCurrency: "xlm", dstCurrency: "usdt") { (seccess) in
                                                                             if success {
-                                                                                self.dismissLoadingView()
+                                                                                DispatchQueue.main.async { self.dismissLoadingView() }
                                                                                 completion(true)
                                                                             }
                                                                         }
@@ -170,7 +170,7 @@ extension MarketsViewController {
                                                             if success {
                                                                 self.network.getMarketStats(srcCurrency: "trx", dstCurrency: "rls") { (seccess) in
                                                                     if success {
-                                                                        self.dismissLoadingView()
+                                                                        DispatchQueue.main.async { self.dismissLoadingView() }
                                                                         completion(true)
                                                                     }
                                                                 }
@@ -258,7 +258,6 @@ extension MarketsViewController {
                         if success {
                             DispatchQueue.main.async {
                                 self.marketsTableView.reloadData()
-                                self.refreshControl.endRefreshing()
                             }
                         }
                     }
@@ -267,7 +266,6 @@ extension MarketsViewController {
                         if success {
                             DispatchQueue.main.async {
                                 self.marketsTableView.reloadData()
-                                self.refreshControl.endRefreshing()
                             }
                         }
                     }
