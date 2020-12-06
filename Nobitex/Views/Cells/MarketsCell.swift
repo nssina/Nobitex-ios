@@ -75,18 +75,22 @@ class MarketsCell: UITableViewCell {
     
     func constraintView() {
         NSLayoutConstraint.activate([
-            coinIcon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            coinIcon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
             coinIcon.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            coinIcon.widthAnchor.constraint(equalToConstant: 30),
-            coinIcon.heightAnchor.constraint(equalToConstant: 30),
-            symbol.leadingAnchor.constraint(equalTo: coinIcon.leadingAnchor, constant: 40),
+            coinIcon.widthAnchor.constraint(equalToConstant: 40),
+            coinIcon.heightAnchor.constraint(equalToConstant: 40),
+            
+            symbol.leadingAnchor.constraint(equalTo: coinIcon.leadingAnchor, constant: 55),
             symbol.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            
             latestPriceLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             latestPriceLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            dayChangeView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
+            
+            dayChangeView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15),
             dayChangeView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             dayChangeView.widthAnchor.constraint(equalToConstant: 80),
             dayChangeView.heightAnchor.constraint(equalToConstant: 30),
+            
             dayChangePercent.centerXAnchor.constraint(equalTo: dayChangeView.centerXAnchor),
             dayChangePercent.centerYAnchor.constraint(equalTo: dayChangeView.centerYAnchor)
         ])

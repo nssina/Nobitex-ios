@@ -61,11 +61,13 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
             }
             
             cell.coinIcon.image = UIImage(named: marketState.symbol[indexPath.row])
-            cell.coinIcon.layer.cornerRadius = 15
+            cell.coinIcon.layer.cornerRadius = 20
             cell.dayChangePercent.font = UIFont.systemFont(ofSize: 16, weight: .bold)
             cell.dayChangePercent.text = "\(marketState.dayChange[indexPath.row])%"
             cell.symbol.text = marketState.symbol[indexPath.row]
+            cell.symbol.font = UIFont.systemFont(ofSize: 18)
             cell.latestPriceLabel.text = marketState.latestPrice[indexPath.row]
+            cell.latestPriceLabel.font = UIFont.systemFont(ofSize: 18)
         }
         
         return cell
@@ -107,7 +109,7 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableView.estimatedRowHeight
+        return 55
     }
 }
 
