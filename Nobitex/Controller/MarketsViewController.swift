@@ -31,7 +31,7 @@ class MarketsViewController: UIViewController {
         view.addSubview(marketsTableView)
         navigationController?.navigationBar.prefersLargeTitles = true
         setMarketsTableViewConstraints()
-//        addSegmentedControl()
+        addSegmentedControl()
         addRefreshControll()
         sendUsdtCoinsRequests { (success) in
             if success {
@@ -73,7 +73,7 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
+        showLoadingView()
         let symbolVc = SymbolInfoViewController()
         
         switch segment.selectedSegmentIndex {
@@ -84,6 +84,7 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
                     symbolVc.symbolName = symbol
                     symbolVc.tradesModel = response
                     DispatchQueue.main.async {
+                        self.dismissLoadingView()
                         self.navigationController?.present(symbolVc, animated: true, completion: nil)
                     }
                 }
@@ -95,6 +96,7 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
                     symbolVc.symbolName = symbol
                     symbolVc.tradesModel = response
                     DispatchQueue.main.async {
+                        self.dismissLoadingView()
                         self.navigationController?.present(symbolVc, animated: true, completion: nil)
                     }
                 }
@@ -209,8 +211,8 @@ extension MarketsViewController {
         segment.setWidth((view.frame.width / 2) - 10, forSegmentAt: 0)
         segment.setWidth((view.frame.width / 2) - 10, forSegmentAt: 1)
         segment.selectedSegmentIndex = 0
-        self.navigationItem.titleView = segment
-        segment.selectedSegmentTintColor = .systemGreen
+//        self.navigationItem.titleView = segment
+        segment.selectedSegmentTintColor = .systemPurple
         segment.addTarget(self, action: #selector(segmentValueChanged), for: .allEvents)
     }
     
@@ -281,11 +283,5 @@ extension MarketsViewController {
         marketState.latestPrice.removeAll()
         marketState.symbol.removeAll()
         completion(true)
-    }
-    
-    func presentVc(id: String) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: id)
-        present(vc, animated: true, completion: nil)
     }
 }
