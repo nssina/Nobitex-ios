@@ -16,6 +16,7 @@
 		D32AE09A256EDAB10067887C /* MarketsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32AE099256EDAB10067887C /* MarketsViewController.swift */; };
 		D32AE09E256EDC320067887C /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32AE09D256EDC320067887C /* LoginModel.swift */; };
 		D32AE0A9256EEA530067887C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32AE0A8256EEA530067887C /* NetworkManager.swift */; };
+		D362229B2585270900D95200 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D362229A2585270900D95200 /* Constants.swift */; };
 		D367E9D4256FFEFA00B1F798 /* MarketStateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D367E9D3256FFEFA00B1F798 /* MarketStateModel.swift */; };
 		D367E9D8257007A100B1F798 /* MarketsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D367E9D7257007A100B1F798 /* MarketsCell.swift */; };
 		D39294532571107800E8EE28 /* TradesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D39294522571107800E8EE28 /* TradesModel.swift */; };
@@ -36,6 +37,7 @@
 		D32AE099256EDAB10067887C /* MarketsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketsViewController.swift; sourceTree = "<group>"; };
 		D32AE09D256EDC320067887C /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		D32AE0A8256EEA530067887C /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		D362229A2585270900D95200 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = ../../../../../Constants.swift; sourceTree = "<group>"; };
 		D367E9D3256FFEFA00B1F798 /* MarketStateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketStateModel.swift; sourceTree = "<group>"; };
 		D367E9D7257007A100B1F798 /* MarketsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketsCell.swift; sourceTree = "<group>"; };
 		D39294522571107800E8EE28 /* TradesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradesModel.swift; sourceTree = "<group>"; };
@@ -74,6 +76,8 @@
 		D32AE07F256ED9ED0067887C /* Nobitex */ = {
 			isa = PBXGroup;
 			children = (
+				D362229D258527D700D95200 /* CustomViews */,
+				D3622299258526F200D95200 /* Utilities */,
 				D32AE095256EDA740067887C /* Model */,
 				D32AE096256EDA7A0067887C /* Views */,
 				D32AE097256EDA7E0067887C /* Controller */,
@@ -120,6 +124,21 @@
 				D32AE0A8256EEA530067887C /* NetworkManager.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		D3622299258526F200D95200 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				D362229A2585270900D95200 /* Constants.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		D362229D258527D700D95200 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
 		D3E312A1257C14AB00C7FFA4 /* Cells */ = {
@@ -230,6 +249,7 @@
 				D367E9D4256FFEFA00B1F798 /* MarketStateModel.swift in Sources */,
 				D32AE09A256EDAB10067887C /* MarketsViewController.swift in Sources */,
 				D32AE083256ED9ED0067887C /* SceneDelegate.swift in Sources */,
+				D362229B2585270900D95200 /* Constants.swift in Sources */,
 				D311C6812577F2D700C37D2E /* LoadingViewController.swift in Sources */,
 				D311C6862577FCED00C37D2E /* WalletsViewController.swift in Sources */,
 			);

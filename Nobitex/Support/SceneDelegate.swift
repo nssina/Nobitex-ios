@@ -28,16 +28,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func createMarketsNC() -> UINavigationController {
         let marketVC = MarketsViewController()
-        marketVC.title = "Markets"
-        marketVC.tabBarItem = UITabBarItem(title: "Markets", image: UIImage(systemName: "chart.bar.xaxis"), tag: 0)
+        marketVC.title = Titles.markets
+        marketVC.tabBarItem = UITabBarItem(title: Titles.markets, image: UIImage(systemName: Images.markets), tag: 0)
         
         return UINavigationController(rootViewController: marketVC)
     }
     
     func createWalletsNC() -> UINavigationController {
         let walletVC = WalletsViewController()
-        walletVC.title = "My Wallets"
-        walletVC.tabBarItem = UITabBarItem(title: "My Wallets", image: UIImage(systemName: "creditcard.fill"), tag: 1)
+        walletVC.title = Titles.myWallets
+        walletVC.tabBarItem = UITabBarItem(title: Titles.myWallets, image: UIImage(systemName: Images.wallet), tag: 1)
         
         return UINavigationController(rootViewController: walletVC)
     }

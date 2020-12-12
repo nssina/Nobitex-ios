@@ -16,6 +16,16 @@ class MarketsCell: UITableViewCell {
         return label
     }()
     
+    lazy var symbolName: UILabel = {
+        let label = UILabel()
+        label.text = "test"
+        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.textColor = .secondaryLabel
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
     lazy var latestPriceLabel: UILabel = {
         let label = UILabel()
         
@@ -64,6 +74,7 @@ class MarketsCell: UITableViewCell {
     
     func addSubview() {
         contentView.addSubview(symbol)
+        contentView.addSubview(symbolName)
         contentView.addSubview(dayChangeView)
         contentView.addSubview(latestPriceLabel)
         contentView.addSubview(coinIcon)
@@ -78,7 +89,12 @@ class MarketsCell: UITableViewCell {
             coinIcon.heightAnchor.constraint(equalToConstant: 40),
             
             symbol.leadingAnchor.constraint(equalTo: coinIcon.leadingAnchor, constant: 55),
-            symbol.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            symbol.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -15),
+            symbol.bottomAnchor.constraint(equalTo: symbolName.topAnchor, constant: -10),
+            
+            symbolName.leadingAnchor.constraint(equalTo: coinIcon.leadingAnchor, constant: 55),
+            symbolName.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+            symbolName.topAnchor.constraint(equalTo: symbol.bottomAnchor, constant: 10),
             
             latestPriceLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             latestPriceLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
