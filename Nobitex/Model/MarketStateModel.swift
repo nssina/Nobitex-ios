@@ -12,6 +12,7 @@ class MarketStateModel {
     static let shared = MarketStateModel()
     
     var symbol = [String]()
+    var symbolName: [String] = []
     var latestPrice = [String]()
     var dayChange = [String]()
 }

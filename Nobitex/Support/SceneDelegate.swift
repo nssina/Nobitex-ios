@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = createTabbar()
         window?.makeKeyAndVisible()
         
-        configureNavigationBar()
+//        configureNavigationBar()
     }
     
     func createMarketsNC() -> UINavigationController {
@@ -44,7 +44,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func createTabbar() -> UITabBarController {
         let tabbar = UITabBarController()
-        UITabBar.appearance().tintColor = .systemPurple
+//        UITabBar.appearance().tintColor = .systemPurple
         tabbar.viewControllers = [createMarketsNC(), createWalletsNC()]
         
         return tabbar
