@@ -60,13 +60,14 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
             }
             
             cell.coinIcon.image = UIImage(named: marketState.symbol[indexPath.row])
-            cell.coinIcon.layer.cornerRadius = 20
+            cell.coinIcon.layer.cornerRadius = 22.5
             cell.dayChangePercent.font = UIFont.systemFont(ofSize: 16, weight: .bold)
             cell.dayChangePercent.text = "\(marketState.dayChange[indexPath.row])%"
             cell.symbol.text = marketState.symbol[indexPath.row]
             cell.symbol.font = UIFont.systemFont(ofSize: 18)
             cell.latestPriceLabel.text = marketState.latestPrice[indexPath.row]
             cell.latestPriceLabel.font = UIFont.systemFont(ofSize: 18)
+            cell.symbolName.text = marketState.symbolNames[marketState.symbol[indexPath.row]]
         }
         
         return cell

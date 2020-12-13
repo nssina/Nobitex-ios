@@ -12,7 +12,18 @@ class MarketStateModel {
     static let shared = MarketStateModel()
     
     var symbol = [String]()
-    var symbolName: [String] = []
     var latestPrice = [String]()
     var dayChange = [String]()
+    
+    let symbolNames: [String:String] = [
+        "BTC" : "Bitcoin",
+        "ETH" : "Ethereum",
+        "LTC" : "Litecoin",
+        "XRP" : "XRP",
+        "BNB" : "Binance Coin",
+        "BCH" : "Bitcoin Cash",
+        "EOS" : "EOS",
+        "TRX" : "TRON",
+        "XLM" : "Stellar"
+    ]
 }

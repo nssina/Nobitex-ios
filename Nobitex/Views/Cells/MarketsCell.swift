@@ -18,9 +18,9 @@ class MarketsCell: UITableViewCell {
     
     lazy var symbolName: UILabel = {
         let label = UILabel()
-        label.text = "test"
-        label.font = UIFont.preferredFont(forTextStyle: .body)
+        
         label.textColor = .secondaryLabel
+        label.font = UIFont.systemFont(ofSize: 13)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -85,16 +85,16 @@ class MarketsCell: UITableViewCell {
         NSLayoutConstraint.activate([
             coinIcon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
             coinIcon.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            coinIcon.widthAnchor.constraint(equalToConstant: 40),
-            coinIcon.heightAnchor.constraint(equalToConstant: 40),
+            coinIcon.widthAnchor.constraint(equalToConstant: 45),
+            coinIcon.heightAnchor.constraint(equalToConstant: 45),
             
             symbol.leadingAnchor.constraint(equalTo: coinIcon.leadingAnchor, constant: 55),
             symbol.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -15),
-            symbol.bottomAnchor.constraint(equalTo: symbolName.topAnchor, constant: -2.5),
+            symbol.bottomAnchor.constraint(equalTo: symbolName.topAnchor, constant: -5),
             
             symbolName.leadingAnchor.constraint(equalTo: coinIcon.leadingAnchor, constant: 55),
             symbolName.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            symbolName.topAnchor.constraint(equalTo: symbol.bottomAnchor, constant: 2.5),
+            symbolName.topAnchor.constraint(equalTo: symbol.bottomAnchor, constant: 5),
             
             latestPriceLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             latestPriceLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
