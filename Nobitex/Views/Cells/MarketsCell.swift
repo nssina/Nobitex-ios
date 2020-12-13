@@ -11,8 +11,10 @@ class MarketsCell: UITableViewCell {
 
     lazy var symbol: UILabel = {
         let label = UILabel()
-        label.numberOfLines = 0
+        
+        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
+        
         return label
     }()
     
@@ -20,7 +22,7 @@ class MarketsCell: UITableViewCell {
         let label = UILabel()
         
         label.textColor = .secondaryLabel
-        label.font = UIFont.systemFont(ofSize: 13)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -29,6 +31,7 @@ class MarketsCell: UITableViewCell {
     lazy var latestPriceLabel: UILabel = {
         let label = UILabel()
         
+        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
@@ -46,8 +49,11 @@ class MarketsCell: UITableViewCell {
     
     lazy var dayChangePercent: UILabel = {
         var label = UILabel()
+        
         label.textColor = .white
+        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         label.translatesAutoresizingMaskIntoConstraints = false
+        
         return label
     }()
     
@@ -61,6 +67,7 @@ class MarketsCell: UITableViewCell {
         return imageView
     }()
     
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -68,9 +75,11 @@ class MarketsCell: UITableViewCell {
         constraintView()
     }
     
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+    
     
     func addSubview() {
         contentView.addSubview(symbol)
@@ -80,6 +89,7 @@ class MarketsCell: UITableViewCell {
         contentView.addSubview(coinIcon)
         dayChangeView.addSubview(dayChangePercent)
     }
+    
     
     func constraintView() {
         NSLayoutConstraint.activate([
