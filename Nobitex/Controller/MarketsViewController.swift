@@ -20,7 +20,6 @@ class MarketsViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
-//        tableView.separatorStyle = .none
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(MarketsCell.self, forCellReuseIdentifier: "marketsCell")
         return tableView
@@ -109,7 +108,7 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90
+        return 70
     }
 }
 

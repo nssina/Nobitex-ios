@@ -90,11 +90,11 @@ class MarketsCell: UITableViewCell {
             
             symbol.leadingAnchor.constraint(equalTo: coinIcon.leadingAnchor, constant: 55),
             symbol.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: -15),
-            symbol.bottomAnchor.constraint(equalTo: symbolName.topAnchor, constant: -10),
+            symbol.bottomAnchor.constraint(equalTo: symbolName.topAnchor, constant: -2.5),
             
             symbolName.leadingAnchor.constraint(equalTo: coinIcon.leadingAnchor, constant: 55),
             symbolName.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            symbolName.topAnchor.constraint(equalTo: symbol.bottomAnchor, constant: 10),
+            symbolName.topAnchor.constraint(equalTo: symbol.bottomAnchor, constant: 2.5),
             
             latestPriceLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             latestPriceLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
