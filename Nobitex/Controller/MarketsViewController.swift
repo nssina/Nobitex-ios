@@ -63,7 +63,16 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
             cell.coinIcon.layer.cornerRadius = 22.5
             cell.dayChangePercent.text = "\(marketState.dayChange[indexPath.row])%"
             cell.symbol.text = marketState.symbol[indexPath.row]
-            cell.latestPriceLabel.text = "$\(marketState.latestPrice[indexPath.row])"
+            
+            switch segment.selectedSegmentIndex {
+            case 0:
+                cell.latestPriceLabel.text = "$\(marketState.latestPrice[indexPath.row])"
+            case 1:
+                cell.latestPriceLabel.text = "T \(marketState.latestPrice[indexPath.row])"
+            default:
+                break
+            }
+            
             cell.symbolName.text = marketState.symbolNames[marketState.symbol[indexPath.row]]
         }
         
@@ -72,7 +81,7 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        showLoadingView()
+        LoadingViewController.shared.showWaiting()
         let symbolVc = SymbolInfoViewController()
         
         switch segment.selectedSegmentIndex {
@@ -83,7 +92,7 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
                     symbolVc.symbolName = symbol
                     symbolVc.tradesModel = response
                     DispatchQueue.main.async {
-                        self.dismissLoadingView()
+                        LoadingViewController.shared.hideWaiting()
                         self.navigationController?.present(symbolVc, animated: true, completion: nil)
                     }
                 }
@@ -95,7 +104,7 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
                     symbolVc.symbolName = symbol
                     symbolVc.tradesModel = response
                     DispatchQueue.main.async {
-                        self.dismissLoadingView()
+                        LoadingViewController.shared.hideWaiting()
                         self.navigationController?.present(symbolVc, animated: true, completion: nil)
                     }
                 }
@@ -112,7 +121,7 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension MarketsViewController {
     func sendUsdtCoinsRequests(completion: @escaping (Bool) -> ()) {
-        showLoadingView()
+        LoadingViewController.shared.showWaiting()
         network.getMarketStats(srcCurrency: "btc", dstCurrency: "usdt") { (success) in
             if success {
                 self.network.getMarketStats(srcCurrency: "eth", dstCurrency: "usdt") { (success) in
@@ -131,7 +140,7 @@ extension MarketsViewController {
                                                                     if success {
                                                                         self.network.getMarketStats(srcCurrency: "xlm", dstCurrency: "usdt") { (seccess) in
                                                                             if success {
-                                                                                DispatchQueue.main.async { self.dismissLoadingView() }
+                                                                                DispatchQueue.main.async { LoadingViewController.shared.hideWaiting() }
                                                                                 completion(true)
                                                                             }
                                                                         }
@@ -154,7 +163,7 @@ extension MarketsViewController {
     }
     
     func sendRlsCoinsRequests(completion: @escaping (Bool) -> ()) {
-        showLoadingView()
+        LoadingViewController.shared.showWaiting()
         network.getMarketStats(srcCurrency: "btc", dstCurrency: "rls") { (success) in
             if success {
                 self.network.getMarketStats(srcCurrency: "eth", dstCurrency: "rls") { (success) in
@@ -171,7 +180,7 @@ extension MarketsViewController {
                                                             if success {
                                                                 self.network.getMarketStats(srcCurrency: "trx", dstCurrency: "rls") { (seccess) in
                                                                     if success {
-                                                                        DispatchQueue.main.async { self.dismissLoadingView() }
+                                                                        DispatchQueue.main.async { LoadingViewController.shared.hideWaiting() }
                                                                         completion(true)
                                                                     }
                                                                 }
@@ -210,8 +219,7 @@ extension MarketsViewController {
         segment.setWidth((view.frame.width / 2) - 10, forSegmentAt: 0)
         segment.setWidth((view.frame.width / 2) - 10, forSegmentAt: 1)
         segment.selectedSegmentIndex = 0
-//        self.navigationItem.titleView = segment
-        segment.selectedSegmentTintColor = .systemPurple
+        self.navigationItem.titleView = segment
         segment.addTarget(self, action: #selector(segmentValueChanged), for: .allEvents)
     }
     

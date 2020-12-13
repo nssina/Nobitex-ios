@@ -27,12 +27,14 @@ class SymbolInfoViewController: UIViewController {
         return tableView
     }()
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.addSubview(symInfoTableView)
         setSymInfoConstraints()
     }
+    
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -51,6 +53,7 @@ extension SymbolInfoViewController: UITableViewDataSource, UITableViewDelegate {
         return tradesModel.trades.count
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "symbolInfoCell", for: indexPath) as! SymbolInfoCell
         
@@ -68,6 +71,11 @@ extension SymbolInfoViewController: UITableViewDataSource, UITableViewDelegate {
         
         return cell
     }
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
 }
 
 extension SymbolInfoViewController {
@@ -79,6 +87,7 @@ extension SymbolInfoViewController {
             symInfoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
+    
     
     @objc func dismissView() {
         dismiss(animated: true, completion: nil)
