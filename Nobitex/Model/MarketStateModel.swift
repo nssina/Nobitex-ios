@@ -24,6 +24,7 @@ class MarketStateModel {
         "BCH" : "Bitcoin Cash",
         "EOS" : "EOS",
         "TRX" : "TRON",
-        "XLM" : "Stellar"
+        "XLM" : "Stellar",
+        "DOGE" : "Dogecoin"
     ]
 }

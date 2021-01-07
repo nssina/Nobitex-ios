@@ -140,8 +140,10 @@ extension MarketsViewController {
                                                                     if success {
                                                                         self.network.getMarketStats(srcCurrency: "xlm", dstCurrency: "usdt") { (seccess) in
                                                                             if success {
-                                                                                DispatchQueue.main.async { LoadingViewController.shared.hideWaiting() }
-                                                                                completion(true)
+                                                                                self.network.getMarketStats(srcCurrency: "doge", dstCurrency: "usdt") { (success) in
+                                                                                    DispatchQueue.main.async { LoadingViewController.shared.hideWaiting() }
+                                                                                    completion(true)
+                                                                                }
                                                                             }
                                                                         }
                                                                     }
@@ -168,20 +170,24 @@ extension MarketsViewController {
             if success {
                 self.network.getMarketStats(srcCurrency: "eth", dstCurrency: "rls") { (success) in
                     if success {
-                        self.network.getMarketStats(srcCurrency: "ltc", dstCurrency: "rls") { (success) in
+                        self.network.getMarketStats(srcCurrency: "usdt", dstCurrency: "rls") { (success) in
                             if success {
-                                self.network.getMarketStats(srcCurrency: "xrp", dstCurrency: "rls") { (success) in
+                                self.network.getMarketStats(srcCurrency: "ltc", dstCurrency: "rls") { (success) in
                                     if success {
-                                        self.network.getMarketStats(srcCurrency: "bnb", dstCurrency: "rls") { (success) in
+                                        self.network.getMarketStats(srcCurrency: "xrp", dstCurrency: "rls") { (success) in
                                             if success {
-                                                self.network.getMarketStats(srcCurrency: "bch", dstCurrency: "rls") { (seccess) in
+                                                self.network.getMarketStats(srcCurrency: "bnb", dstCurrency: "rls") { (success) in
                                                     if success {
-                                                        self.network.getMarketStats(srcCurrency: "eos", dstCurrency: "rls") { (seccess) in
+                                                        self.network.getMarketStats(srcCurrency: "bch", dstCurrency: "rls") { (seccess) in
                                                             if success {
-                                                                self.network.getMarketStats(srcCurrency: "trx", dstCurrency: "rls") { (seccess) in
+                                                                self.network.getMarketStats(srcCurrency: "eos", dstCurrency: "rls") { (seccess) in
                                                                     if success {
-                                                                        DispatchQueue.main.async { LoadingViewController.shared.hideWaiting() }
-                                                                        completion(true)
+                                                                        self.network.getMarketStats(srcCurrency: "trx", dstCurrency: "rls") { (seccess) in
+                                                                            if success {
+                                                                                DispatchQueue.main.async { LoadingViewController.shared.hideWaiting() }
+                                                                                completion(true)
+                                                                            }
+                                                                        }
                                                                     }
                                                                 }
                                                             }
