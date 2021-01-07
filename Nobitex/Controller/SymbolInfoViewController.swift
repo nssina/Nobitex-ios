@@ -57,8 +57,10 @@ extension SymbolInfoViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "symbolInfoCell", for: indexPath) as! SymbolInfoCell
         
+        let formattedPrice = String(self.tradesModel.trades[indexPath.row].price.prefix(7))
+        
         DispatchQueue.main.async {
-            cell.price.text = self.tradesModel.trades[indexPath.row].price
+            cell.price.text = formattedPrice
             
             cell.time.text = self.timeConverter.setTimestamp(epochTime: self.tradesModel.trades[indexPath.row].time)
             

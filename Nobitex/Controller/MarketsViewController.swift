@@ -184,8 +184,10 @@ extension MarketsViewController {
                                                                     if success {
                                                                         self.network.getMarketStats(srcCurrency: "trx", dstCurrency: "rls") { (seccess) in
                                                                             if success {
-                                                                                DispatchQueue.main.async { LoadingViewController.shared.hideWaiting() }
-                                                                                completion(true)
+                                                                                self.network.getMarketStats(srcCurrency: "doge", dstCurrency: "rls") { (success) in
+                                                                                    DispatchQueue.main.async { LoadingViewController.shared.hideWaiting() }
+                                                                                    completion(true)
+                                                                                }
                                                                             }
                                                                         }
                                                                     }
