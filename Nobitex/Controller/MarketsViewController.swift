@@ -66,9 +66,17 @@ extension MarketsViewController: UITableViewDataSource, UITableViewDelegate {
             
             switch segment.selectedSegmentIndex {
             case 0:
-                cell.latestPriceLabel.text = "$\(marketState.latestPrice[indexPath.row])"
+                if marketState.latestPrice[indexPath.row].last == "." {
+                    cell.latestPriceLabel.text = "$\(marketState.latestPrice[indexPath.row].dropLast())"
+                } else {
+                    cell.latestPriceLabel.text = "$\(marketState.latestPrice[indexPath.row])"
+                }
             case 1:
-                cell.latestPriceLabel.text = "T \(marketState.latestPrice[indexPath.row])"
+                if marketState.latestPrice[indexPath.row].last == "." {
+                    cell.latestPriceLabel.text = "T \(marketState.latestPrice[indexPath.row].dropLast())"
+                } else {
+                    cell.latestPriceLabel.text = "T \(marketState.latestPrice[indexPath.row])"
+                }
             default:
                 break
             }
