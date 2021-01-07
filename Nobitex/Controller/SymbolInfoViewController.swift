@@ -57,17 +57,19 @@ extension SymbolInfoViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "symbolInfoCell", for: indexPath) as! SymbolInfoCell
         
-        cell.price.text = tradesModel.trades[indexPath.row].price
-        
-        cell.time.text = timeConverter.setTimestamp(epochTime: tradesModel.trades[indexPath.row].time)
-        
-        if tradesModel.trades[indexPath.row].type == "sell" {
-            cell.price.textColor = .systemRed
-        } else {
-            cell.price.textColor = .systemGreen
+        DispatchQueue.main.async {
+            cell.price.text = self.tradesModel.trades[indexPath.row].price
+            
+            cell.time.text = self.timeConverter.setTimestamp(epochTime: self.tradesModel.trades[indexPath.row].time)
+            
+            if self.tradesModel.trades[indexPath.row].type == "sell" {
+                cell.price.textColor = .systemRed
+            } else {
+                cell.price.textColor = .systemGreen
+            }
+            
+            cell.volume.text = self.tradesModel.trades[indexPath.row].volume
         }
-        
-        cell.volume.text = tradesModel.trades[indexPath.row].volume
         
         return cell
     }

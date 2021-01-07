@@ -18,6 +18,7 @@ class MarketStateModel {
     let symbolNames: [String:String] = [
         "BTC" : "Bitcoin",
         "ETH" : "Ethereum",
+        "USDT" : "Tether",
         "LTC" : "Litecoin",
         "XRP" : "XRP",
         "BNB" : "Binance Coin",
