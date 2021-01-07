@@ -31,6 +31,7 @@ class LoadingViewController {
             self.activityIndicator.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
             self.activityIndicator.style = .large
             self.activityIndicator.center = CGPoint(x: indicatorViewSize.width/2, y: indicatorViewSize.height/2)
+            self.activityIndicator.color = .white
             
             self.indicatorView.addSubview(self.activityIndicator)
             self.container.addSubview(self.indicatorView)
